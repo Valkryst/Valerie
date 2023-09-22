@@ -134,7 +134,7 @@
         <dependency>
             <groupId>com.github.Valkryst</groupId>
             <artifactId>VCodeLanguageDetection</artifactId>
-            <version>dc1367f</version>
+            <version>1.0.0</version>
         </dependency>
 
         <!-- Testing -->
