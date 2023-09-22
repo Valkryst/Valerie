@@ -1,6 +1,8 @@
 Valerie was intended to be an advanced interface for OpenAI's ChatGPT, which allows users to create named _personalities_
 and chat with them. This allows for more personalized and context-aware conversations. All data is saved locally.
 
+You can view screenshots of the UI [here](https://github.com/Valkryst/Valerie/wiki/Screenshots).
+
 This project is not currently being worked on, but I may return to it in the future.
 
 ## Features
