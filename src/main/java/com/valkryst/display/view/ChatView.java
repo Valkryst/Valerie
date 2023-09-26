@@ -1,6 +1,7 @@
 package com.valkryst.display.view;
 
 import com.valkryst.AudioRecorder;
+import com.valkryst.VMVC.view.View;
 import com.valkryst.api.whisper.WhisperLocal;
 import com.valkryst.display.Display;
 import com.valkryst.display.component.ChatMessageTextArea;

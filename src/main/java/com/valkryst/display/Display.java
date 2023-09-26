@@ -1,6 +1,6 @@
 package com.valkryst.display;
 
-import com.valkryst.display.view.View;
+import com.valkryst.VMVC.view.View;
 import lombok.Getter;
 import lombok.NonNull;
 

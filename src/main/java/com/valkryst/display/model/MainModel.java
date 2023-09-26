@@ -1,5 +1,6 @@
 package com.valkryst.display.model;
 
+import com.valkryst.VMVC.model.Model;
 import com.valkryst.display.controller.MainController;
 import com.valkryst.display.view.MainView;
 import lombok.NonNull;

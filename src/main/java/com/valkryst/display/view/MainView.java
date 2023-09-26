@@ -1,5 +1,6 @@
 package com.valkryst.display.view;
 
+import com.valkryst.VMVC.view.View;
 import com.valkryst.display.controller.MainController;
 import com.valkryst.display.model.HomeTabModel;
 import com.valkryst.display.model.PersonalitiesTabModel;

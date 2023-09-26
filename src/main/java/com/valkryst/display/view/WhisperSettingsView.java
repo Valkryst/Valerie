@@ -1,5 +1,6 @@
 package com.valkryst.display.view;
 
+import com.valkryst.VMVC.view.View;
 import com.valkryst.display.Display;
 import com.valkryst.display.controller.WhisperSettingsController;
 import lombok.NonNull;

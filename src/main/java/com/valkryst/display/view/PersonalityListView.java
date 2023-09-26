@@ -1,5 +1,6 @@
 package com.valkryst.display.view;
 
+import com.valkryst.VMVC.view.View;
 import com.valkryst.display.component.JIconButton;
 import com.valkryst.display.controller.PersonalityListController;
 import com.valkryst.gpt.Chat;

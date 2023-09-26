@@ -1,5 +1,6 @@
 package com.valkryst.display.view;
 
+import com.valkryst.VMVC.view.View;
 import com.valkryst.display.component.CodeTextArea;
 import com.valkryst.display.controller.MessageController;
 import net.miginfocom.swing.MigLayout;

@@ -1,5 +1,6 @@
 package com.valkryst.display.model;
 
+import com.valkryst.VMVC.model.Model;
 import com.valkryst.display.controller.ChatListController;
 import com.valkryst.display.view.ChatListView;
 import com.valkryst.gpt.Chat;

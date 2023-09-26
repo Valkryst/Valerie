@@ -1,6 +1,7 @@
 package com.valkryst.display.model;
 
 import com.google.gson.JsonObject;
+import com.valkryst.VMVC.model.Model;
 import com.valkryst.display.Display;
 import com.valkryst.display.controller.WhisperSettingsController;
 import com.valkryst.display.view.WhisperSettingsView;

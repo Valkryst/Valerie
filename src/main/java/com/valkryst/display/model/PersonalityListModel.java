@@ -1,5 +1,6 @@
 package com.valkryst.display.model;
 
+import com.valkryst.VMVC.model.Model;
 import com.valkryst.display.Display;
 import com.valkryst.display.controller.PersonalityListController;
 import com.valkryst.display.view.PersonalityListView;

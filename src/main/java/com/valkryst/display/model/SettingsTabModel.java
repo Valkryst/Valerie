@@ -1,5 +1,6 @@
 package com.valkryst.display.model;
 
+import com.valkryst.VMVC.model.Model;
 import com.valkryst.display.controller.SettingsTabController;
 import com.valkryst.display.view.SettingsTabView;
 import lombok.NonNull;
