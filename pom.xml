@@ -54,7 +54,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-swing</artifactId>
-            <version>22</version>
+            <version>22.0.1</version>
         </dependency>
 
         <!-- Audio & Video Playback -->
