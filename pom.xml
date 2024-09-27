@@ -61,7 +61,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
-            <version>22.0.2</version>
+            <version>23</version>
         </dependency>
 
         <!-- MVC Framework -->
