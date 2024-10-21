@@ -2,6 +2,7 @@ package com.valkryst.Valerie.gpt;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.valkryst.Valerie.display.model.ChatGptSettingsModel;
 import lombok.NonNull;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -15,7 +16,6 @@ import java.util.concurrent.TimeUnit;
  * A singleton class for accessing the OpenAI Chat API and Whisper API.
  */
 public class ChatAPI {
-    private final static String API_KEY = System.getenv("OPEN_AI_API_KEY");
     private final Gson GSON = new Gson();
     private final OkHttpClient CLIENT = new OkHttpClient.Builder().readTimeout(30, TimeUnit.SECONDS).build();
 
@@ -38,9 +38,11 @@ public class ChatAPI {
      * @throws IOException if an I/O error occurs.
      */
     public String getResponse(@NonNull Chat chat) throws IOException {
+        final var settings = ChatGptSettingsModel.getInstance();
+
         final var requestBody = new JsonObject();
         requestBody.add("messages", GSON.toJsonTree(chat.toJson()));
-        requestBody.addProperty("model", "gpt-3.5-turbo");
+        requestBody.addProperty("model", settings.getModel().name());
         requestBody.addProperty("temperature", 0.5);
         // requestBody.addProperty("max_tokens", chat.getPersonality().getGptModel().getMaxTokens());
         requestBody.addProperty("user", "Valkryst"); // todo Don't use my username.
@@ -50,7 +52,7 @@ public class ChatAPI {
         final var request = new Request.Builder()
                 .url("https://api.openai.com/v1/chat/completions")
                 .addHeader("Content-Type", "application/json")
-                .addHeader("Authorization", "Bearer " + API_KEY)
+                .addHeader("Authorization", "Bearer " + settings.getApiKey())
                 .post(requestbody)
                 .build();
 
