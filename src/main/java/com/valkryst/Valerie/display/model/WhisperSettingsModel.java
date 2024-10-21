@@ -77,10 +77,10 @@ public class WhisperSettingsModel extends Model<WhisperSettingsController, Whisp
         final var json = FileIO.loadJsonFromDisk(FILE_PATH);
 
         var value = json.get("modelPath").getAsString();
-        modelPath = value.isEmpty() ? null : Path.of(value);
+        modelPath = value.isEmpty() ? Path.of("") : Path.of(value);
 
         value = json.get("executablePath").getAsString();
-        executablePath = value.isEmpty() ? null : Path.of(value);
+        executablePath = value.isEmpty() ? Path.of("") : Path.of(value);
 
         value = json.get("language").getAsString();
         language = value.isEmpty() ? Locale.ENGLISH : Locale.forLanguageTag(value);
