@@ -26,11 +26,14 @@ public class ChatListController extends Controller<ChatListModel> {
      * @param name The name of the {@link Chat} to create.
      */
     public void createChat(final String name) {
-        if (name == null || name.isEmpty()) {
+        final Chat chat;
+        try {
+            chat = new Chat(super.model.getPersonality(), name);
+        } catch (final IllegalArgumentException e) {
+            Display.displayWarning(null, e.getMessage());
             return;
         }
 
-        final var chat = new Chat(super.model.getPersonality(), name);
         super.model.getChats().addElement(chat);
 
         try {
