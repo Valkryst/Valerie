@@ -38,8 +38,8 @@ public class Chat {
      * @param personality The Personality that the Chat belongs to.
      * @param name The name of the chat.
      */
-    public Chat(final Personality personality, final @NonNull String name) {
-        if (name.isEmpty()) {
+    public Chat(final Personality personality, final String name) {
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("The name cannot be empty.");
         }
 
