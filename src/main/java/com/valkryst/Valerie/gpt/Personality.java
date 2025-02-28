@@ -15,6 +15,9 @@ import java.nio.file.Path;
 import java.util.UUID;
 
 public class Personality {
+    /** Maximum length of a {@link Personality}'s name. */
+    private static final int MAX_NAME_LENGTH = 32;
+
     /** The unique ID of the Personality. */
     @Getter private String id;
 
@@ -38,6 +41,10 @@ public class Personality {
     public Personality(final @NonNull String name) {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("The name cannot be empty.");
+        }
+
+        if (name.length() > MAX_NAME_LENGTH) {
+            throw new IllegalArgumentException("The name cannot be longer than " + MAX_NAME_LENGTH + " characters.");
         }
 
         id = UUID.randomUUID().toString();
