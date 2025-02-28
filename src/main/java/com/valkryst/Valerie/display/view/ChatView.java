@@ -125,12 +125,21 @@ public class ChatView extends View<ChatController> {
 
         final var messageView = new MessageModel(message).createView();
 
-        if (chatScrollPane.getComponents().length % 2 == 0) {
+        messagesView.add(messageView);
+        if (messagesView.getComponentCount() % 2 == 0) {
             messageView.setBackground(messageView.getBackground().darker());
         }
 
-        messagesView.add(messageView);
+        messageView.revalidate();
+        messageView.repaint();
+
         chatScrollPane.revalidate();
+        chatScrollPane.repaint();
+
+        SwingUtilities.invokeLater(() -> {
+            final var scrollBar = chatScrollPane.getVerticalScrollBar();
+            scrollBar.setValue(scrollBar.getMaximum());
+        });
     }
 
     private void sendMessage() {

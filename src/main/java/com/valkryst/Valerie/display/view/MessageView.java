@@ -28,6 +28,7 @@ public class MessageView extends View<MessageController> {
 
         this.setLayout(new MigLayout("fillx, flowy", "[fill, align center]"));
         this.setMinimumSize(super.getMinimumSize());
+        this.setOpaque(true);
 
         final var document = Jsoup.parse(controller.getMessageContent());
         for (final var element : document.body().children()) {
@@ -78,6 +79,7 @@ public class MessageView extends View<MessageController> {
         textArea.setEditable(false);
         textArea.setFont(FONT);
         textArea.setLineWrap(true);
+        textArea.setOpaque(false);
         textArea.setWrapStyleWord(true);
         textArea.setText(text);
         return textArea;
