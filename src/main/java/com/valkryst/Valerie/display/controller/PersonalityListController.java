@@ -25,11 +25,14 @@ public class PersonalityListController extends Controller<PersonalityListModel> 
      * @param name The name of the {@link Personality} to create.
      */
     public void createPersonality(final String name) {
-        if (name == null || name.isEmpty()) {
+        final Personality personality;
+        try {
+            personality = new Personality(name);
+        } catch (final IllegalArgumentException e) {
+            Display.displayWarning(null, e.getMessage());
             return;
         }
 
-        final var personality = new Personality(name);
         super.model.getPersonalities().addElement(personality);
 
         try {
