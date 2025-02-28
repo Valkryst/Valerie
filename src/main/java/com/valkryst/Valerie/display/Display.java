@@ -51,9 +51,9 @@ public class Display {
     }
 
     /**
-     * Displays an error message in a dialog.
+     * Displays a {@link JOptionPane#ERROR_MESSAGE} message.
      *
-     * @param dialogParent The parent component of the dialog.
+     * @param dialogParent Parent {@link Component} of the {@link JOptionPane}.
      *
      * @param throwable The throwable.
      */
@@ -78,6 +78,22 @@ public class Display {
             new JScrollPane(textArea),
             "An Error Occurred",
             JOptionPane.ERROR_MESSAGE
+        );
+    }
+
+    /**
+     * Displays a {@link JOptionPane#WARNING_MESSAGE}.
+     *
+     * @param dialogParent Parent {@link Component} of the {@link JOptionPane}.
+     *
+     * @param message The message.
+     */
+    public static void displayWarning(final Component dialogParent, final String message) {
+        JOptionPane.showMessageDialog(
+            dialogParent,
+            message,
+            "Warning",
+            JOptionPane.WARNING_MESSAGE
         );
     }
 }
