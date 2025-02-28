@@ -6,6 +6,7 @@ import com.valkryst.Valerie.api.whisper.WhisperLocal;
 import com.valkryst.Valerie.display.Display;
 import com.valkryst.Valerie.display.component.ChatMessageTextArea;
 import com.valkryst.Valerie.display.controller.ChatController;
+import com.valkryst.Valerie.display.model.ChatGptSettingsModel;
 import com.valkryst.Valerie.display.model.MessageModel;
 import com.valkryst.Valerie.gpt.Message;
 import com.valkryst.Valerie.gpt.MessageRole;
@@ -249,8 +250,12 @@ public class ChatView extends View<ChatController> {
      * @return The message send button.
      */
     private JButton createMessageSendButton() {
+        final var gptSettingsModel = ChatGptSettingsModel.getInstance();
+        final var isApiKeyBlank = gptSettingsModel.getApiKey().isBlank();
+
         final var button = new JButton("Submit");
-        button.setEnabled(!controller.isChatNull());
+        button.setEnabled(!controller.isChatNull() && !isApiKeyBlank);
+        button.setToolTipText(isApiKeyBlank ? "You must add an OpenAI API Key to use this feature." : "Submit the message.");
         button.addActionListener(e -> sendMessage());
         return button;
     }
