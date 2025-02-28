@@ -17,6 +17,9 @@ import java.util.UUID;
 
 /** Represents a chat between two individuals. */
 public class Chat {
+    /** Maximum length of a {@link Chat}'s name. */
+    private static final int MAX_NAME_LENGTH = 32;
+
     /** The Personality that the Chat belongs to. */
     @Getter private final Personality personality;
 
@@ -38,6 +41,10 @@ public class Chat {
     public Chat(final Personality personality, final @NonNull String name) {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("The name cannot be empty.");
+        }
+
+        if (name.length() > MAX_NAME_LENGTH) {
+            throw new IllegalArgumentException("The name cannot be longer than " + MAX_NAME_LENGTH + " characters.");
         }
 
         id = UUID.randomUUID().toString();
