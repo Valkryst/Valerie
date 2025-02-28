@@ -1,6 +1,7 @@
 package com.valkryst.Valerie.display.view;
 
 import com.valkryst.VMVC.view.View;
+import com.valkryst.Valerie.display.Display;
 import com.valkryst.Valerie.display.component.JIconButton;
 import com.valkryst.Valerie.display.controller.PersonalityListController;
 import com.valkryst.Valerie.gpt.Chat;
@@ -102,6 +103,11 @@ public class PersonalityListView extends View<PersonalityListController> {
 
         button.addActionListener(e -> {
             final var personality = controller.getSelectedPersonality();
+            if (controller.getPersonalities().size() == 1) {
+                Display.displayWarning(null, "You must always have at least one Personality.");
+                return;
+            }
+
             final var option = showDeletionDialog(personality);
             if (option == JOptionPane.YES_OPTION) {
                 controller.deletePersonality(personality);
