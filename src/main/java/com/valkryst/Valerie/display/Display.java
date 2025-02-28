@@ -28,7 +28,7 @@ public class Display {
             }
         });
         frame.setVisible(true);
-        frame.setMinimumSize(new Dimension(800, 500));
+        frame.setMinimumSize(new Dimension(900, 500));
         frame.pack();
         frame.setLocationRelativeTo(null); // Must be called after pack()
     }
