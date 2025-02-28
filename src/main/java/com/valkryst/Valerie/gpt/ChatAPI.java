@@ -42,7 +42,7 @@ public class ChatAPI {
 
         final var requestBody = new JsonObject();
         requestBody.add("messages", GSON.toJsonTree(chat.toJson()));
-        requestBody.addProperty("model", settings.getModel().name());
+        requestBody.addProperty("model", settings.getModel().getName());
         requestBody.addProperty("temperature", 0.5);
         // requestBody.addProperty("max_tokens", chat.getPersonality().getGptModel().getMaxTokens());
         requestBody.addProperty("user", "Valkryst"); // todo Don't use my username.
