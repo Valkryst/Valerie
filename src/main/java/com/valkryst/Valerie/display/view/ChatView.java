@@ -171,10 +171,11 @@ public class ChatView extends View<ChatController> {
                 new AudioFormat(16000, 16, 1, true, true),
                 LineIn.getInputSources().entrySet().stream().findFirst().orElseThrow().getKey()
             );
-        } catch (final LineUnavailableException e) {
+        } catch (final Exception e) {
             Display.displayError(this, e);
 
             button.setEnabled(false);
+            button.setToolTipText(button.getToolTipText() + "\n\nDue to an error, the audio transcription feature is disabled.");
             return button;
         }
 
