@@ -64,6 +64,13 @@
             <version>22.0.2</version>
         </dependency>
 
+        <!-- Line-In Audio Recording -->
+        <dependency>
+            <groupId>com.github.Valkryst</groupId>
+            <artifactId>VLineIn</artifactId>
+            <version>2025.02.27</version>
+        </dependency>
+
         <!-- MVC Framework -->
         <dependency>
             <groupId>com.github.Valkryst</groupId>

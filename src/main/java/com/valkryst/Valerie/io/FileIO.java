@@ -14,31 +14,6 @@ import java.nio.file.Path;
 
 public class FileIO {
     /**
-     * Saves data from the specified line to a file.
-     *
-     * @param filePath The path to the file.
-     * @param lineIn The line to save data from.
-     *
-     * @throws IOException If an I/O error occurs.
-     */
-    public static void saveAudioToDisk(@NonNull Path filePath, final @NonNull TargetDataLine lineIn) throws IOException {
-        if (Files.isDirectory(filePath)) {
-            throw new IOException("The path points to a folder, not a file.");
-        }
-
-        if (!FileIO.getFileExtension(filePath).equals("wav")) {
-            System.out.println("The file path does not end with \".wav\". Changing it to: " + filePath.getFileName() + ".wav");
-            filePath = filePath.resolveSibling(filePath.getFileName() + ".wav");
-        }
-
-        Files.createDirectories(filePath.getParent());
-
-        try (final var audioInputStream = new AudioInputStream(lineIn)) {
-            AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, filePath.toFile());
-        }
-    }
-
-    /**
      * Saves the specified object to a JSON file.
      *
      * @param filePath The path to the file.

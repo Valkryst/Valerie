@@ -1,7 +1,7 @@
 package com.valkryst.Valerie.display.view;
 
+import com.valkryst.VLineIn.LineIn;
 import com.valkryst.VMVC.view.View;
-import com.valkryst.Valerie.AudioRecorder;
 import com.valkryst.Valerie.api.whisper.WhisperLocal;
 import com.valkryst.Valerie.display.Display;
 import com.valkryst.Valerie.display.component.ChatMessageTextArea;
@@ -9,9 +9,13 @@ import com.valkryst.Valerie.display.controller.ChatController;
 import com.valkryst.Valerie.display.model.MessageModel;
 import com.valkryst.Valerie.gpt.Message;
 import com.valkryst.Valerie.gpt.MessageRole;
+import com.valkryst.Valerie.io.FileIO;
+import com.valkryst.Valerie.io.FolderIO;
 import lombok.NonNull;
 import net.miginfocom.swing.MigLayout;
 
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
@@ -22,6 +26,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.UUID;
 
 public class ChatView extends View<ChatController> {
     /** The message text area. */
@@ -159,9 +165,12 @@ public class ChatView extends View<ChatController> {
         button.setEnabled(!controller.isChatNull());
 
         // todo Should select mic based on settings.
-        final AudioRecorder audioRecorder;
+        final LineIn lineIn;
         try {
-            audioRecorder = new AudioRecorder(AudioRecorder.getInputSourceNames().get(0));
+            lineIn = new LineIn(
+                new AudioFormat(16000, 16, 1, true, true),
+                LineIn.getInputSources().entrySet().stream().findFirst().orElseThrow().getKey()
+            );
         } catch (final LineUnavailableException e) {
             Display.displayError(this, e);
 
@@ -170,8 +179,12 @@ public class ChatView extends View<ChatController> {
         }
 
         button.addActionListener(e -> {
+            final var folderPath = FolderIO.getFolderPathForType(LineIn.class);
+            final var outputFilePath = FileIO.getFilePath(folderPath, UUID.randomUUID() + ".wav");
+
             try {
-                audioRecorder.startRecording();
+                Files.createDirectories(outputFilePath.getParent());
+                lineIn.startRecording(AudioFileFormat.Type.WAVE, outputFilePath);
             } catch (final IOException ex) {
                 Display.displayError(this, ex);
                 return;
@@ -179,7 +192,7 @@ public class ChatView extends View<ChatController> {
 
             buttonPanel.remove(button);
 
-            final var stopButton = createStopRecordingButton(buttonPanel, audioRecorder);
+            final var stopButton = createStopRecordingButton(buttonPanel, lineIn, outputFilePath);
             buttonPanel.add(stopButton, 1);
             stopButton.requestFocus();
             buttonPanel.revalidate();
@@ -188,19 +201,18 @@ public class ChatView extends View<ChatController> {
         return button;
     }
 
-    private JButton createStopRecordingButton(final @NonNull JPanel buttonPanel, final @NonNull AudioRecorder audioRecorder) {
+    private JButton createStopRecordingButton(final @NonNull JPanel buttonPanel, final @NonNull LineIn lineIn, final @NonNull Path outputFilePath) {
         final var button = new JButton("Stop Audio Transcription");
         button.setToolTipText("Stop Audio Transcription");
         button.setEnabled(!controller.isChatNull());
 
         button.addActionListener(e -> {
             try {
-                final var path = audioRecorder.stopRecording();
+                lineIn.stopRecording();
 
                 try {
-                    final var whisper = new WhisperLocal(path);
+                    final var whisper = new WhisperLocal(outputFilePath);
                     messageTextArea.setText(whisper.getTranscription());
-                    Files.delete(path);
                 } catch (final IllegalArgumentException | IOException | UnsupportedAudioFileException ex) {
                     Display.displayError(this, ex); // todo Button never switches when error happens
                 }
@@ -212,6 +224,12 @@ public class ChatView extends View<ChatController> {
                  */
                 Display.displayError(this, ex);
                 System.exit(1);
+            } finally {
+                try {
+                    Files.delete(outputFilePath);
+                } catch (final IOException ex) {
+                    Display.displayError(this, ex);
+                }
             }
 
             buttonPanel.remove(button);
