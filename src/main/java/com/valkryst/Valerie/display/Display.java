@@ -74,7 +74,7 @@ public class Display {
         textArea.setText(stringBuilder.toString());
 
         JOptionPane.showMessageDialog(
-            dialogParent,
+            dialogParent == null ? INSTANCE.getFrame() : dialogParent,
             new JScrollPane(textArea),
             "An Error Occurred",
             JOptionPane.ERROR_MESSAGE
@@ -90,7 +90,7 @@ public class Display {
      */
     public static void displayWarning(final Component dialogParent, final String message) {
         JOptionPane.showMessageDialog(
-            dialogParent,
+            dialogParent == null ? INSTANCE.getFrame() : dialogParent,
             message,
             "Warning",
             JOptionPane.WARNING_MESSAGE
