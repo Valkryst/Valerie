@@ -38,8 +38,8 @@ public class Personality {
      *
      * @param name The name of the Personality.
      */
-    public Personality(final @NonNull String name) {
-        if (name.isEmpty()) {
+    public Personality(final String name) {
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("The name cannot be empty.");
         }
 
