@@ -27,7 +27,6 @@ public class Display {
                 System.exit(0);
             }
         });
-        frame.setVisible(true);
         frame.setMinimumSize(new Dimension(900, 500));
         frame.pack();
         frame.setLocationRelativeTo(null); // Must be called after pack()
@@ -36,6 +35,10 @@ public class Display {
 	public void setContentPane(final @NonNull View view) {
 		frame.setContentPane(view);
 		frame.revalidate();
+
+        if (!frame.isVisible()) {
+            frame.setVisible(true);
+        }
 
 		view.requestFocusInWindow();
 	}
