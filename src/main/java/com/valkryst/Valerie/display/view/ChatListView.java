@@ -50,6 +50,11 @@ public class ChatListView extends View<ChatListController> {
             }
         });
 
+        if (list.getSelectedValue() == null) {
+            deletionButton.setEnabled(false);
+            editButton.setEnabled(false);
+        }
+
         final var buttonPanel = new JPanel(new GridLayout(0, 3));
         buttonPanel.add(newCreationButton(controller));
         buttonPanel.add(editButton);
