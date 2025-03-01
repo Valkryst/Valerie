@@ -1,5 +1,6 @@
 package com.valkryst.Valerie.display.view;
 
+import com.valkryst.JToggleablePasswordField.JToggleablePasswordField;
 import com.valkryst.VMVC.view.View;
 import com.valkryst.Valerie.display.Display;
 import com.valkryst.Valerie.display.controller.ChatGptSettingsController;
@@ -32,7 +33,7 @@ public class ChatGptSettingsView extends View<ChatGptSettingsController> {
         c.gridy = 0;
         add(new JLabel("OpenAI API key:"), c);
 
-        JTextField apiKeyField = new JTextField();
+        final var apiKeyField = new JToggleablePasswordField();
         apiKeyField.setText(controller.getApiKey());
         apiKeyField.setToolTipText("The OpenAI API key to use when generating text.");
         c.gridx = 1;
