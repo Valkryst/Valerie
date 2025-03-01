@@ -35,6 +35,7 @@ public class WhisperSettingsView extends View<WhisperSettingsController> {
 
         JTextField executableField = new JTextField();
         executableField.setEditable(false);
+        executableField.setFocusable(false);
         executableField.setText(controller.getExecutablePath().toString());
         executableField.setToolTipText(controller.getExecutablePath().toString());
         c.gridx = 1;
@@ -53,6 +54,7 @@ public class WhisperSettingsView extends View<WhisperSettingsController> {
 
         JTextField modelField = new JTextField();
         modelField.setEditable(false);
+        modelField.setFocusable(false);
         modelField.setText(controller.getModelPath().toString());
         modelField.setToolTipText(controller.getModelPath().toString());
         c.gridx = 1;
