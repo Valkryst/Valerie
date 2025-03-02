@@ -130,6 +130,13 @@
             <version>3f27df723a27e0fb04d2fdfe5cdd5bef987f28c0</version>
         </dependency>
 
+        <!-- UI Toast Notifications -->
+        <dependency>
+            <groupId>com.dorkbox</groupId>
+            <artifactId>Notify</artifactId>
+            <version>4.5</version>
+        </dependency>
+
         <!-- Markdown Parser -->
         <dependency>
             <groupId>org.commonmark</groupId>

@@ -3,6 +3,9 @@ package com.valkryst.Valerie.display.view;
 import com.valkryst.VMVC.view.View;
 import com.valkryst.Valerie.display.Display;
 import com.valkryst.Valerie.display.controller.WhisperSettingsController;
+import dorkbox.notify.Notify;
+import dorkbox.notify.Position;
+import dorkbox.notify.Theme;
 import lombok.NonNull;
 
 import javax.swing.*;
@@ -87,6 +90,22 @@ public class WhisperSettingsView extends View<WhisperSettingsController> {
     }
 
     /**
+     * Shows a toast notification within the view.
+     *
+     * @param message The message to display
+     */
+    private void showNotification(final String message) {
+        final var notify = Notify.Companion.create()
+                                   .title("Saved")
+                                   .text(message)
+                                   .theme(Theme.Companion.getDefaultDark())
+                                   .attach(Display.getInstance().getFrame())
+                                   .position(Position.BOTTOM_RIGHT)
+                                   .hideAfter(1500);
+        notify.showInformation();
+    }
+
+    /**
      * Creates a button for selecting the executable file.
      *
      * @param controller The controller.
@@ -104,6 +123,7 @@ public class WhisperSettingsView extends View<WhisperSettingsController> {
                     textField.setToolTipText(path.toString());
 
                     controller.setExecutablePath(path);
+                    showNotification("Whisper executable path saved.");
                 } catch (final IOException ex) {
                     Display.displayError(button.getParent(), ex);
                 }
@@ -140,6 +160,7 @@ public class WhisperSettingsView extends View<WhisperSettingsController> {
         comboBox.addActionListener(e -> {
             try {
                 controller.setLanguage((Locale) comboBox.getSelectedItem());
+                showNotification("Language preference saved.");
             } catch (final IOException | NullPointerException ex) {
                 Display.displayError(comboBox.getParent(), ex);
             }
@@ -166,6 +187,7 @@ public class WhisperSettingsView extends View<WhisperSettingsController> {
                     textField.setToolTipText(path.toString());
 
                     controller.setModelPath(path);
+                    showNotification("Whisper model path saved.");
                 } catch (final IOException ex) {
                     Display.displayError(button.getParent(), ex);
                 }
@@ -200,6 +222,7 @@ public class WhisperSettingsView extends View<WhisperSettingsController> {
         comboBox.addActionListener(e -> {
             try {
                 controller.setProcessors((Integer) comboBox.getSelectedItem());
+                showNotification("Processor preference saved.");
             } catch (final IOException | NullPointerException ex) {
                 Display.displayError(comboBox.getParent(), ex);
             }

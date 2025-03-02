@@ -5,6 +5,9 @@ import com.valkryst.VMVC.view.View;
 import com.valkryst.Valerie.display.Display;
 import com.valkryst.Valerie.display.controller.ChatGptSettingsController;
 import com.valkryst.Valerie.gpt.ChatGptModels;
+import dorkbox.notify.Notify;
+import dorkbox.notify.Position;
+import dorkbox.notify.Theme;
 import lombok.NonNull;
 
 import javax.swing.*;
@@ -48,6 +51,7 @@ public class ChatGptSettingsView extends View<ChatGptSettingsController> {
         final Timer saveTimer = new Timer(1000, e -> {
             try {
                 controller.setApiKey(new String(apiKeyField.getPassword()));
+                showNotification("API key saved");
             } catch (final IOException ex) {
                 Display.displayError(this, ex);
             }
@@ -73,21 +77,7 @@ public class ChatGptSettingsView extends View<ChatGptSettingsController> {
 
         c.gridx = 1;
         c.gridy = 0;
-        c.gridwidth = 2;
         add(apiKeyField, c);
-
-        // Save button
-        final var saveButton = new JButton("Save");
-        saveButton.addActionListener(e -> {
-            try {
-                controller.setApiKey(new String(apiKeyField.getPassword()));
-            } catch (IOException ex) {
-                Display.displayError(this, ex);
-            }
-        });
-        c.gridx = 2;
-        c.gridy = 0;
-        add(saveButton, c);
 
         // Model label
         final var modelLabel = new JLabel("Model:");
@@ -99,8 +89,23 @@ public class ChatGptSettingsView extends View<ChatGptSettingsController> {
         final var modelsComboBox = createModelsComboBox(controller);
         c.gridx = 1;
         c.gridy = 1;
-        c.gridwidth = 2;
         add(modelsComboBox, c);
+    }
+
+    /**
+     * Shows a toast notification within the view.
+     *
+     * @param message The message to display
+     */
+    private void showNotification(final String message) {
+        final var notify = Notify.Companion.create()
+                .title("Saved")
+                .text(message)
+                .theme(Theme.Companion.getDefaultDark())
+                .attach(Display.getInstance().getFrame())
+                .position(Position.BOTTOM_RIGHT)
+                .hideAfter(1500);
+        notify.showInformation();
     }
 
     /**
@@ -120,6 +125,7 @@ public class ChatGptSettingsView extends View<ChatGptSettingsController> {
         comboBox.addActionListener(e -> {
             try {
                 controller.setModel((ChatGptModels) Objects.requireNonNull(comboBox.getSelectedItem()));
+                showNotification("Model preference saved");
             } catch (final IOException | NullPointerException ex) {
                 Display.displayError(comboBox.getParent(), ex);
             }
