@@ -120,7 +120,7 @@
         <dependency>
             <groupId>com.fifesoft</groupId>
             <artifactId>rsyntaxtextarea</artifactId>
-            <version>3.5.4</version>
+            <version>3.6.0</version>
         </dependency>
 
         <!-- UI Component to display toggleable JPasswordField. -->
