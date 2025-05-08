@@ -1,8 +1,8 @@
 package com.valkryst.Valerie.display.view;
 
+import com.valkryst.JIconButton.JIconButton;
 import com.valkryst.VMVC.view.View;
 import com.valkryst.Valerie.display.Display;
-import com.valkryst.Valerie.display.component.JIconButton;
 import com.valkryst.Valerie.display.controller.PersonalityListController;
 import com.valkryst.Valerie.gpt.Chat;
 import com.valkryst.Valerie.gpt.Personality;

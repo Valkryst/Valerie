@@ -1,7 +1,7 @@
 package com.valkryst.Valerie.display.view;
 
+import com.valkryst.JIconButton.JIconButton;
 import com.valkryst.VMVC.view.View;
-import com.valkryst.Valerie.display.component.JIconButton;
 import com.valkryst.Valerie.display.controller.ChatListController;
 import com.valkryst.Valerie.gpt.Chat;
 import lombok.Getter;
