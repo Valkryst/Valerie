@@ -1,5 +1,6 @@
 package com.valkryst.Valerie.display.view;
 
+import com.valkryst.JCopyButton.JCopyButton;
 import com.valkryst.VMVC.view.View;
 import com.valkryst.Valerie.display.component.CodeTextArea;
 import com.valkryst.Valerie.display.controller.MessageController;
@@ -10,7 +11,8 @@ import org.jsoup.Jsoup;
 import javax.swing.*;
 import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
-import java.awt.datatransfer.StringSelection;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MessageView extends View<MessageController> {
     private static final Font FONT = new Font("Lucidia Sans", Font.PLAIN, 12);
@@ -48,13 +50,15 @@ public class MessageView extends View<MessageController> {
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
-        final var copyButton = new JButton("Copy");
+        final var copyButton = new JCopyButton(codeArea);
         copyButton.addActionListener(e -> {
-            final var clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-            clipboard.setContents(new StringSelection(codeArea.getText()), null);
-
             copyButton.setText("Copied!");
-            new Timer(1000, e2 -> copyButton.setText("Copy")).start();
+        });
+        copyButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(final MouseEvent e) {
+                copyButton.setText("Copy");
+            }
         });
 
         final var bottomPanel = new JPanel();
@@ -69,7 +73,7 @@ public class MessageView extends View<MessageController> {
         panel.setLayout(new BorderLayout());
         panel.setOpaque(false);
         panel.add(scrollPane, BorderLayout.CENTER);
-        panel.add(bottomPanel, BorderLayout.SOUTH);
+        panel.add(bottomPanel, BorderLayout.NORTH);
 
         return panel;
     }
