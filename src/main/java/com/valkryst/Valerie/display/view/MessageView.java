@@ -13,7 +13,7 @@ import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 
 public class MessageView extends View<MessageController> {
-    private static final Font FONT = new Font("Lucidia Sans", Font.PLAIN, 16);
+    private static final Font FONT = new Font("Lucidia Sans", Font.PLAIN, 12);
     private static final Font CODE_FONT = new Font("Lucida Sans Typewriter", Font.PLAIN, 12);
 
     private static final int MAX_WIDTH = 800;
