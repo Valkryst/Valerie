@@ -1,15 +1,19 @@
 package com.valkryst.Valerie.display.component;
 
+import com.jthemedetecor.OsThemeDetector;
 import com.valkryst.VCodeLanguageDetection.LanguageDetector;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rsyntaxtextarea.Theme;
 
-public class CodeTextArea extends RSyntaxTextArea {
-    private static final Theme theme = loadTheme();
+import javax.swing.*;
+import java.io.IOException;
 
+@Slf4j
+public class CodeTextArea extends RSyntaxTextArea {
     @Getter private final String syntaxStyle;
 
     public CodeTextArea(final @NonNull String text) {
@@ -23,26 +27,9 @@ public class CodeTextArea extends RSyntaxTextArea {
         this.setSyntaxEditingStyle(syntaxStyle = detectSyntaxStyle(text));
         this.setText(text);
 
-        if (theme != null) {
-            theme.apply(this);
-        }
-    }
-
-    private static Theme loadTheme() {
-        final var url = CodeTextArea.class.getClassLoader().getResource("DraculaRSyntaxTheme.xml");
-
-        if (url == null) {
-            return null;
-        }
-
-        try (
-            final var inputStream = url.openStream();
-        ) {
-            return Theme.load(inputStream);
-        } catch (final Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        final var themeDetector = OsThemeDetector.getDetector();
+        this.setTheme(themeDetector.isDark());
+        themeDetector.registerListener(isDark -> SwingUtilities.invokeLater(() -> setTheme(isDark)));
     }
 
     private String detectSyntaxStyle(final @NonNull String code) {
@@ -59,6 +46,18 @@ public class CodeTextArea extends RSyntaxTextArea {
             return (String) field.get(null);
         } catch (final NoSuchFieldException | IllegalAccessException e) {
             return RSyntaxTextArea.SYNTAX_STYLE_NONE;
+        }
+    }
+
+    private void setTheme(final boolean isDark) {
+        final String path = "org/fife/ui/rsyntaxtextarea/themes/" + (isDark ? "dark" : "default") + ".xml";
+
+        try {
+            // The load function will close the stream after loading the theme.
+            final var stream = CodeTextArea.class.getClassLoader().getResourceAsStream(path);
+            Theme.load(stream).apply(this);
+        } catch (final IOException e) {
+            log.error(e.getMessage(), e);
         }
     }
 }
