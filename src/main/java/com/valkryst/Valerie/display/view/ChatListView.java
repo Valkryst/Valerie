@@ -1,5 +1,6 @@
 package com.valkryst.Valerie.display.view;
 
+import com.jthemedetecor.OsThemeDetector;
 import com.valkryst.JIconButton.JIconButton;
 import com.valkryst.VMVC.view.View;
 import com.valkryst.Valerie.display.controller.ChatListController;
@@ -76,7 +77,7 @@ public class ChatListView extends View<ChatListController> {
      * @return The button.
      */
     private JIconButton newCreationButton(final ChatListController controller) {
-        final var button = new JIconButton(FontIcon.of(MaterialDesignC.CHAT_PLUS_OUTLINE, Color.WHITE));
+        final var button = new JIconButton(FontIcon.of(MaterialDesignC.CHAT_PLUS_OUTLINE, UIManager.getColor("Button.foreground")));
         button.setMinimumSize(MIN_BUTTON_SIZE);
         button.setPreferredSize(MIN_BUTTON_SIZE);
 
@@ -87,6 +88,10 @@ public class ChatListView extends View<ChatListController> {
             controller.createChat(chatName);
             list.setSelectedIndex(list.getModel().getSize() - 1);
         });
+
+        OsThemeDetector.getDetector().registerListener(isDark -> SwingUtilities.invokeLater(() -> {
+            ((FontIcon) button.getIcon()).setIconColor(isDark ? Color.WHITE : Color.BLACK);
+        }));
         return button;
     }
 
@@ -98,7 +103,7 @@ public class ChatListView extends View<ChatListController> {
      * @return The button.
      */
     private JIconButton newDeletionButton(final ChatListController controller) {
-        final var button = new JIconButton(FontIcon.of(MaterialDesignC.CHAT_REMOVE_OUTLINE, Color.WHITE));
+        final var button = new JIconButton(FontIcon.of(MaterialDesignC.CHAT_REMOVE_OUTLINE, UIManager.getColor("Button.foreground")));
         button.setMinimumSize(MIN_BUTTON_SIZE);
         button.setPreferredSize(MIN_BUTTON_SIZE);
 
@@ -112,6 +117,10 @@ public class ChatListView extends View<ChatListController> {
                 list.setSelectedIndex(list.getModel().getSize() - 1);
             }
         });
+
+        OsThemeDetector.getDetector().registerListener(isDark -> SwingUtilities.invokeLater(() -> {
+            ((FontIcon) button.getIcon()).setIconColor(isDark ? Color.WHITE : Color.BLACK);
+        }));
         return button;
     }
 
@@ -123,7 +132,7 @@ public class ChatListView extends View<ChatListController> {
      * @return The button.
      */
     private JIconButton newEditButton(final ChatListController controller) {
-        final var button = new JIconButton(FontIcon.of(MaterialDesignC.CHAT_PROCESSING_OUTLINE, Color.WHITE));
+        final var button = new JIconButton(FontIcon.of(MaterialDesignC.CHAT_PROCESSING_OUTLINE, UIManager.getColor("Button.foreground")));
         button.setMinimumSize(MIN_BUTTON_SIZE);
         button.setPreferredSize(MIN_BUTTON_SIZE);
 
@@ -137,6 +146,10 @@ public class ChatListView extends View<ChatListController> {
                 list.repaint();
             }
         });
+
+        OsThemeDetector.getDetector().registerListener(isDark -> SwingUtilities.invokeLater(() -> {
+            ((FontIcon) button.getIcon()).setIconColor(isDark ? Color.WHITE : Color.BLACK);
+        }));
         return button;
     }
 

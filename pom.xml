@@ -85,6 +85,13 @@
             <version>0d3561d613db3f790f1639a04fb22a7a63ad44f0</version>
         </dependency>
 
+        <!-- OS Dark/Light Mode Detection -->
+        <dependency>
+            <groupId>com.github.Dansoftowner</groupId>
+            <artifactId>jSystemThemeDetector</artifactId>
+            <version>3.9.1</version>
+        </dependency>
+
         <!-- UI Theme -->
         <dependency>
             <groupId>com.formdev</groupId>

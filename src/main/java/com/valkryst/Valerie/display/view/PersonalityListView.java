@@ -1,5 +1,6 @@
 package com.valkryst.Valerie.display.view;
 
+import com.jthemedetecor.OsThemeDetector;
 import com.valkryst.JIconButton.JIconButton;
 import com.valkryst.VMVC.view.View;
 import com.valkryst.Valerie.display.Display;
@@ -73,7 +74,7 @@ public class PersonalityListView extends View<PersonalityListController> {
      * @return The button.
      */
     private JIconButton newCreationButton(final PersonalityListController controller) {
-        final var button = new JIconButton(FontIcon.of(MaterialDesignP.PLUS, Color.WHITE));
+        final var button = new JIconButton(FontIcon.of(MaterialDesignP.PLUS, UIManager.getColor("Button.foreground")));
         button.setMinimumSize(MIN_BUTTON_SIZE);
         button.setPreferredSize(MIN_BUTTON_SIZE);
 
@@ -84,6 +85,10 @@ public class PersonalityListView extends View<PersonalityListController> {
             controller.createPersonality(chatName);
             list.setSelectedIndex(list.getModel().getSize() - 1);
         });
+
+        OsThemeDetector.getDetector().registerListener(isDark -> SwingUtilities.invokeLater(() -> {
+            ((FontIcon) button.getIcon()).setIconColor(isDark ? Color.WHITE : Color.BLACK);
+        }));
         return button;
     }
 
@@ -95,7 +100,7 @@ public class PersonalityListView extends View<PersonalityListController> {
      * @return The button.
      */
     private JIconButton newDeletionButton(final PersonalityListController controller) {
-        final var button = new JIconButton(FontIcon.of(MaterialDesignM.MINUS, Color.WHITE));
+        final var button = new JIconButton(FontIcon.of(MaterialDesignM.MINUS, UIManager.getColor("Button.foreground")));
         button.setMinimumSize(MIN_BUTTON_SIZE);
         button.setPreferredSize(MIN_BUTTON_SIZE);
 
@@ -114,6 +119,10 @@ public class PersonalityListView extends View<PersonalityListController> {
                 list.setSelectedIndex(list.getModel().getSize() - 1);
             }
         });
+
+        OsThemeDetector.getDetector().registerListener(isDark -> SwingUtilities.invokeLater(() -> {
+            ((FontIcon) button.getIcon()).setIconColor(isDark ? Color.WHITE : Color.BLACK);
+        }));
         return button;
     }
 
@@ -125,7 +134,7 @@ public class PersonalityListView extends View<PersonalityListController> {
      * @return The button.
      */
     private JIconButton newEditButton(final PersonalityListController controller) {
-        final var button = new JIconButton(FontIcon.of(MaterialDesignP.PENCIL, Color.WHITE));
+        final var button = new JIconButton(FontIcon.of(MaterialDesignP.PENCIL, UIManager.getColor("Button.foreground")));
         button.setMinimumSize(MIN_BUTTON_SIZE);
         button.setPreferredSize(MIN_BUTTON_SIZE);
 
@@ -134,6 +143,10 @@ public class PersonalityListView extends View<PersonalityListController> {
         button.addActionListener(e -> {
             // todo Switch to Personalities tab, and ensure this personality is selected there.
         });
+
+        OsThemeDetector.getDetector().registerListener(isDark -> SwingUtilities.invokeLater(() -> {
+            ((FontIcon) button.getIcon()).setIconColor(isDark ? Color.WHITE : Color.BLACK);
+        }));
         return button;
     }
 
