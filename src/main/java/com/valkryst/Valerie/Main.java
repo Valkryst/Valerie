@@ -39,8 +39,6 @@ public class Main {
             }
 
             FlatLaf.updateUI();
-            System.out.println(isDark ? "Dark" : "Light");
-            System.out.println(UIManager.getColor("TextField.foreground"));
         });
     }
 }
