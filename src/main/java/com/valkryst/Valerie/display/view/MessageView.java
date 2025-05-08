@@ -48,6 +48,7 @@ public class MessageView extends View<MessageController> {
 
         final var scrollPane = new RTextScrollPane(codeArea);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        scrollPane.setDoubleBuffered(true);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
@@ -62,19 +63,20 @@ public class MessageView extends View<MessageController> {
             }
         });
 
-        final var bottomPanel = new JPanel();
-        bottomPanel.setBackground(codeArea.getBackground());
-        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
-        bottomPanel.add(new JLabel(codeArea.getSyntaxStyle()));
-        bottomPanel.add(Box.createHorizontalGlue());
-        bottomPanel.add(copyButton);
+        final var topPanel = new JPanel();
+        topPanel.setBackground(codeArea.getBackground());
+        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
+        topPanel.add(new JLabel(codeArea.getSyntaxStyle()));
+        topPanel.add(Box.createHorizontalGlue());
+        topPanel.add(copyButton);
 
         final var panel = new JPanel();
         panel.setBorder(BorderFactory.createEmptyBorder(16, 0, 16, 0));
+        panel.setDoubleBuffered(true);
         panel.setLayout(new BorderLayout());
         panel.setOpaque(false);
+        panel.add(topPanel, BorderLayout.NORTH);
         panel.add(scrollPane, BorderLayout.CENTER);
-        panel.add(bottomPanel, BorderLayout.NORTH);
 
         return panel;
     }

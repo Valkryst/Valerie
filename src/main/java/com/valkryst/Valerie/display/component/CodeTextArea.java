@@ -21,6 +21,7 @@ public class CodeTextArea extends RSyntaxTextArea {
         this.setBracketMatchingEnabled(true);
         this.setClearWhitespaceLinesEnabled(true);
         this.setCodeFoldingEnabled(true);
+        this.setDoubleBuffered(true);
         this.setEditable(false);
         this.setHighlightCurrentLine(false);
         this.setHyperlinksEnabled(true);
