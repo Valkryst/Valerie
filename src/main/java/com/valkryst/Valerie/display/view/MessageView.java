@@ -47,6 +47,7 @@ public class MessageView extends View<MessageController> {
         codeArea.setFont(CODE_FONT);
 
         final var scrollPane = new RTextScrollPane(codeArea);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
