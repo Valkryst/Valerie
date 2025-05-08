@@ -144,6 +144,13 @@
             <version>2025.5.23</version>
         </dependency>
 
+        <!-- UI Button to copy the text of a JTexTComponent. -->
+        <dependency>
+            <groupId>com.github.Valkryst</groupId>
+            <artifactId>JCopyButton</artifactId>
+            <version>dcc1ea2</version>
+        </dependency>
+
         <!-- UI Toast Notifications -->
         <dependency>
             <groupId>com.dorkbox</groupId>
