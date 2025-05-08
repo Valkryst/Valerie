@@ -67,7 +67,8 @@ public class ChatView extends View<ChatController> {
         chatScrollPane = new JScrollPane(messagesView);
         chatScrollPane.getViewport().setScrollMode(JViewport.BACKINGSTORE_SCROLL_MODE);
         chatScrollPane.setOpaque(true);
-        chatScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        chatScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        chatScrollPane.getHorizontalScrollBar().setUnitIncrement(5);
         chatScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         chatScrollPane.getVerticalScrollBar().setUnitIncrement(5);
         chatScrollPane.addComponentListener(new ComponentAdapter() {
