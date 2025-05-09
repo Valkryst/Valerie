@@ -148,7 +148,7 @@
         <dependency>
             <groupId>com.github.Valkryst</groupId>
             <artifactId>JCopyButton</artifactId>
-            <version>dcc1ea2</version>
+            <version>2025.5.9</version>
         </dependency>
 
         <!-- UI Toast Notifications -->
