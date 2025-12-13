@@ -62,15 +62,17 @@ public class ChatView extends View<ChatController> {
         super(controller);
 
         messagesView.setLayout(new MigLayout("fillx, flowy", "[fill]"));
+        messagesView.setDoubleBuffered(true);
         controller.getMessagePanels().forEach(messagesView::add);
 
         chatScrollPane = new JScrollPane(messagesView);
-        chatScrollPane.getViewport().setScrollMode(JViewport.BACKINGSTORE_SCROLL_MODE);
+        chatScrollPane.setDoubleBuffered(true);
+        chatScrollPane.getViewport().setScrollMode(JViewport.BLIT_SCROLL_MODE);
         chatScrollPane.setOpaque(true);
         chatScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        chatScrollPane.getHorizontalScrollBar().setUnitIncrement(5);
+        chatScrollPane.getHorizontalScrollBar().setUnitIncrement(16);
         chatScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        chatScrollPane.getVerticalScrollBar().setUnitIncrement(5);
+        chatScrollPane.getVerticalScrollBar().setUnitIncrement(16);
         chatScrollPane.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(final ComponentEvent e) {
