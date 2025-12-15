@@ -47,7 +47,7 @@ public class ChatGptSettingsModel extends Model<ChatGptSettingsController, ChatG
      *
      * @throws IOException If an I/O exception occurs.
      */
-    public void save() throws IOException {
+    public synchronized void save() throws IOException {
         final var json = new JsonObject();
         json.addProperty("apiKey", apiKey);
         json.addProperty("model", model.name());
@@ -60,7 +60,7 @@ public class ChatGptSettingsModel extends Model<ChatGptSettingsController, ChatG
      *
      * @throws IOException If an I/O exception occurs.
      */
-    private void load() throws IOException {
+    private synchronized void load() throws IOException {
         if (Files.notExists(FILE_PATH)) {
             save();
         }
