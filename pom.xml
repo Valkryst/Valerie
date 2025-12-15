@@ -76,7 +76,7 @@
         <dependency>
             <groupId>com.github.Valkryst</groupId>
             <artifactId>VLineIn</artifactId>
-            <version>2025.03.01</version>
+            <version>cdfa260</version>
         </dependency>
 
         <!-- MVC Framework -->
