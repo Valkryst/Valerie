@@ -94,7 +94,7 @@ public class WhisperSettingsModel extends Model<WhisperSettingsController, Whisp
      *
      * @return The singleton instance.
      */
-    public static WhisperSettingsModel getInstance() {
+    public synchronized static WhisperSettingsModel getInstance() {
         if (instance != null) {
             return instance;
         }

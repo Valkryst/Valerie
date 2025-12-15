@@ -79,7 +79,7 @@ public class ChatGptSettingsModel extends Model<ChatGptSettingsController, ChatG
      *
      * @return The singleton instance.
      */
-    public static ChatGptSettingsModel getInstance() {
+    public synchronized static ChatGptSettingsModel getInstance() {
         if (instance != null) {
             return instance;
         }
