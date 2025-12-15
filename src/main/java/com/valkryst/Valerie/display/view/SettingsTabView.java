@@ -3,6 +3,7 @@ package com.valkryst.Valerie.display.view;
 import com.valkryst.VMVC.view.View;
 import com.valkryst.Valerie.display.controller.SettingsTabController;
 import com.valkryst.Valerie.display.model.ChatGptSettingsModel;
+import com.valkryst.Valerie.display.model.GeneralSettingsModel;
 import com.valkryst.Valerie.display.model.WhisperSettingsModel;
 import lombok.NonNull;
 
@@ -19,6 +20,7 @@ public class SettingsTabView extends View<SettingsTabController> {
         super(controller);
 
         final var tabbedPane = new JTabbedPane();
+        tabbedPane.addTab("General", GeneralSettingsModel.getInstance().createView());
         tabbedPane.addTab("ChatGPT", ChatGptSettingsModel.getInstance().createView());
         tabbedPane.addTab("Whisper", WhisperSettingsModel.getInstance().createView());
 

@@ -1,13 +1,13 @@
 package com.valkryst.Valerie.display.view;
 
 import com.valkryst.VLineIn.LineIn;
-import com.valkryst.VLineIn.LineInComboBox;
 import com.valkryst.VMVC.view.View;
 import com.valkryst.Valerie.api.whisper.WhisperLocal;
 import com.valkryst.Valerie.display.Display;
 import com.valkryst.Valerie.display.component.ChatMessageTextArea;
 import com.valkryst.Valerie.display.controller.ChatController;
 import com.valkryst.Valerie.display.model.ChatGptSettingsModel;
+import com.valkryst.Valerie.display.model.GeneralSettingsModel;
 import com.valkryst.Valerie.display.model.MessageModel;
 import com.valkryst.Valerie.gpt.Message;
 import com.valkryst.Valerie.gpt.MessageRole;
@@ -16,7 +16,8 @@ import com.valkryst.Valerie.io.FolderIO;
 import lombok.NonNull;
 import net.miginfocom.swing.MigLayout;
 
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.AdjustmentEvent;
@@ -29,14 +30,8 @@ import java.nio.file.Path;
 import java.util.UUID;
 
 public class ChatView extends View<ChatController> {
-    /** {@link AudioFormat} to use when recording audio. */
-    private static final AudioFormat AUDIO_FORMAT = new AudioFormat(16000, 16, 1, true, true);
-
     /** The message text area. */
     private final JTextArea messageTextArea;
-
-    /** Lists the available line-in sources. */
-    private final JComboBox<String> lineInSourcesComboBox = createLineInComboBox();
 
     /** The record button. */
     private final JButton recordButton;
@@ -81,7 +76,7 @@ public class ChatView extends View<ChatController> {
         });
 
         final var buttonPanel = new JPanel();
-        recordButton = createAudioRecordButton(buttonPanel);
+        recordButton = createAudioRecordButton(buttonPanel); // todo Disable transcription, if Whisper's not set up.
         buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         final var personality = controller.getPersonality();
@@ -95,7 +90,6 @@ public class ChatView extends View<ChatController> {
         }
 
         buttonPanel.add(tokenCountLabel);
-        buttonPanel.add(lineInSourcesComboBox);
         buttonPanel.add(recordButton);
         buttonPanel.add(sendButton);
 
@@ -177,14 +171,6 @@ public class ChatView extends View<ChatController> {
         thread.start();
     }
 
-    private JComboBox<String> createLineInComboBox() {
-        final var comboBox = new LineInComboBox(AUDIO_FORMAT);
-        comboBox.setPlaceholderText("Select Audio Source");
-        comboBox.setEnabled(!controller.isChatNull());
-        comboBox.setToolTipText("Select an audio source to use for audio transcription.");
-        return comboBox;
-    }
-
     private JButton createAudioRecordButton(final @NonNull JPanel buttonPanel) {
         final var button = new JButton("Start Audio Transcription");
         button.setToolTipText("Starts an audio transcription session.\nWhen the session is complete, any existing text will be replaced with the transcription.");
@@ -194,22 +180,20 @@ public class ChatView extends View<ChatController> {
             final var folderPath = FolderIO.getFolderPathForType(LineIn.class);
             final var outputFilePath = FileIO.getFilePath(folderPath, UUID.randomUUID() + ".wav");
 
-            final var selectedSource = (String) lineInSourcesComboBox.getSelectedItem();
-            if (selectedSource == null || selectedSource.equals("Select Audio Source")) {
+            final var selectedSource = GeneralSettingsModel.getInstance().getLineInSource();
+            if (selectedSource == null || selectedSource.isBlank()) {
                 Display.displayWarning(this, "You must select an audio source to use for audio transcription.");
                 return;
             }
 
             final LineIn lineIn;
             try {
-                lineIn = new LineIn(
-                    AUDIO_FORMAT,
-                    selectedSource
-                );
+                lineIn = new LineIn(GeneralSettingsTabView.AUDIO_FORMAT, selectedSource);
 
                 Files.createDirectories(outputFilePath.getParent());
                 lineIn.startRecording(AudioFileFormat.Type.WAVE, outputFilePath);
             } catch (final Exception ex) {
+                // todo If the saved lineInSource is invalid (e.g. the user unplugged their mic), this will throw an exception.
                 Display.displayError(this, ex);
                 return;
             }
@@ -260,8 +244,7 @@ public class ChatView extends View<ChatController> {
 
             buttonPanel.remove(button);
 
-            buttonPanel.add(lineInSourcesComboBox, 1);
-            buttonPanel.add(recordButton, 2);
+            buttonPanel.add(recordButton);
             recordButton.requestFocus();
 
             buttonPanel.revalidate();
