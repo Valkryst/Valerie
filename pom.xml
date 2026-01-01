@@ -102,7 +102,7 @@
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf-intellij-themes</artifactId>
-            <version>3.6.1</version>
+            <version>3.7</version>
         </dependency>
 
         <!-- UI Layout Management -->
