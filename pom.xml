@@ -69,7 +69,7 @@
         <dependency>
             <groupId>com.openai</groupId>
             <artifactId>openai-java</artifactId>
-            <version>4.23.0</version>
+            <version>4.30.0</version>
         </dependency>
 
         <!-- Line-In Audio Recording -->
